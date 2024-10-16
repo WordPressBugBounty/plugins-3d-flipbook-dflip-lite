@@ -1,5 +1,5 @@
-=== PDF Flipbook, 3D Flipbook, PDF embed, PDF viewer - DearFlip ===
-Plugin Name: PDF Flipbook, 3D Flipbook, PDF embed, PDF viewer - DearFlip
+=== Dear Flipbook - PDF Flipbook, 3D Flipbook, PDF embed, PDF viewer ===
+Plugin Name: Dear Flipbook - PDF Flipbook, 3D Flipbook, PDF embed, PDF viewer
 Author: dearhive
 Author URI: https://dearflip.com/go/wp-lite-author
 Contributors: deip, dearhive
@@ -11,7 +11,7 @@ Requires PHP: 5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-PDF Flipbook, 3D Flipbook for WordPress. Create realistic 3D flipbooks using PDFs or Images. Easy to use PDF embed and pdf viewer flipbook.
+Dear Flipbook creates PDF Flipbook, 3D Flipbook, PDF viewer, PDF embed for WordPress. Create realistic 3D flipbooks using PDFs or Images. Easy to use PDF embed and pdf viewer flipbook.
 
 == Description ==
 
