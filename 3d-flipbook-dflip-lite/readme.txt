@@ -6,7 +6,7 @@ Contributors: deip, dearhive
 Tags: flipbook, flip book, 3d flipbook, pdf flipbook, pdf viewer
 Requires at least: 4.6
 Tested up to: 6.6
-Stable tag: 2.3.32
+Stable tag: 2.3.42
 Requires PHP: 5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -36,7 +36,7 @@ Introducing Dear Flipbook (DearFlip), the user-friendly 3D flipbook WordPress pl
 
 
 
-### Viewer Modes available in Dear Flipbook
+### File Formats Supported by Dear Flipbook
 - **PDF / PDF Flipbook** – Why do we recommend using 3D PDF Flipbooks? The key lies in their incredible simplicity. These PDF flipbooks are incredibly easy to create and use. Built on the powerful PDF.js library, they offer exceptional convenience, making management and updates a breeze. All it takes is a simple link to the PDF file, eliminating any unnecessary hassle. As our recommended file format for 3D flipbooks, we guarantee an unparalleled user experience.
 - **Image / Image Flipbook** – If you have a collection of images that you want to display, why not create a captivating storybook out of them using ALBUMS? Picture Flipbook serves as your virtual album, enabling you to flip through, share, and cherish your photographs and portfolios with the world.
 
@@ -294,6 +294,12 @@ If you want to contribute, go to our [DFlip Lite WordPress Repository](https://g
 == Changelog ==
 
 This lite version is available in WordPress plugin directory since version 1.2.8
+
+= 2.3.42: =
+* Add: Review notice
+* Fix: Vulnerability (CVE-2024-8717) fix
+* Fix: Keyboard conflicts in multiple embedded flipbooks. Works when there is one embedded flipbook
+* Improve: 3D Shadow improved for landscape sizes
 
 = 2.3.32: =
 * Add: Category filter added in posts page
