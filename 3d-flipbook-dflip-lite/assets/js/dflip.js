@@ -1351,7 +1351,7 @@ Query.prototype.click = function() {
 
 /* globals jQuery */ var defaults_DEARVIEWER = {
     jQuery: null,
-    version: '2.3.74',
+    version: '2.3.75',
     autoDetectLocation: true,
     _isHashTriggered: false,
     slug: undefined,
