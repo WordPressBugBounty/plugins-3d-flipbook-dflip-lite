@@ -1256,7 +1256,7 @@ span.df-share-title {
 .df-reader-scroll-page-number.df-active {
   display: block;
 }
-.df-reader-scroll-page-number div {
+.df-reader-scroll-page-number .df-reader-scroll-page-number-total {
   margin-top: 6px;
   padding-top: 6px;
   border-top: 1px solid #aaa;

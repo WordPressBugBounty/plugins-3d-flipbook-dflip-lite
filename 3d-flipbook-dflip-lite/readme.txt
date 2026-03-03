@@ -6,7 +6,7 @@ Contributors: deip, dearhive
 Tags: flipbook, flip book, 3d flipbook, pdf flipbook, pdf viewer
 Requires at least: 4.6
 Tested up to: 6.9
-Stable tag: 2.4.20
+Stable tag: 2.4.27
 Requires PHP: 5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -294,6 +294,11 @@ If you want to contribute, go to our [DFlip Lite WordPress Repository](https://g
 == Changelog ==
 
 This lite version is available in WordPress plugin directory since version 1.2.8
+
+= 2.4.27: =
+* Fix: Fixes Vulnerability CVE-2026-2569
+* Fix: PageMode issue in documents with 1 or 2 pages
+* Add: WordPress 5.9 tested
 
 = 2.4.20: =
 * Fix: Cache plugins conflict

@@ -1437,7 +1437,7 @@ Query.event = {
 
 /* globals jQuery */ var defaults_DEARVIEWER = {
     jQuery: null,
-    version: '2.4.20',
+    version: '2.4.27',
     autoDetectLocation: true,
     _isHashTriggered: false,
     slug: undefined,
@@ -2453,7 +2453,7 @@ var getAttributes = function getAttributes(element) {
         source: 'pdf-source,df-source,source',
         is3D: 'webgl,is3d',
         viewerType: 'viewertype,viewer-type',
-        pagemode: ''
+        pageMode: 'pagemode'
     };
     for(var key in attrKeys){
         var aliases = (key + "," + attrKeys[key]).split(",");
@@ -4146,17 +4146,22 @@ var Reader = /*#__PURE__*/ function(BaseViewer) {
                 this.scrollBar.appendTo(this.app.container);
                 //solved #237
                 this.scrollPageNumber = reader_jQuery("<div class='df-reader-scroll-page-number'>").appendTo(this.app.container);
+                this.scrollPageNumberCurrent = reader_jQuery("<div>").appendTo(this.scrollPageNumber);
+                this.scrollPageNumberTotal = reader_jQuery("<div class='df-reader-scroll-page-number-total'>").appendTo(this.scrollPageNumber);
             }
         },
         {
             key: "afterControlUpdate",
             value: function afterControlUpdate() {
                 if (this.scrollBar === void 0) return;
-                this.scrollBar[0].innerHTML = this.app.getCurrentLabel();
+                var currentLabel = this.app.getCurrentLabel();
+                this.scrollBar.text(currentLabel);
                 if (this.app.provider.pageLabels) {
-                    this.scrollPageNumber[0].innerHTML = this.app.getCurrentLabel() + "<div>(" + this.app.currentPageNumber + " of " + this.app.pageCount + ")</div>";
+                    this.scrollPageNumberCurrent.text(currentLabel);
+                    this.scrollPageNumberTotal.text("(" + this.app.currentPageNumber + " of " + this.app.pageCount + ")");
                 } else {
-                    this.scrollPageNumber[0].innerHTML = this.app.getCurrentLabel() + "<div>of " + this.app.pageCount + "</div>";
+                    this.scrollPageNumberCurrent.text(currentLabel);
+                    this.scrollPageNumberTotal.text("of " + this.app.pageCount);
                 }
             }
         },
@@ -5337,23 +5342,26 @@ var BaseFlipBookViewer = /*#__PURE__*/ function(BaseViewer) {
                 this.pageMode = isSingle ? defaults_DEARVIEWER.FLIPBOOK_PAGE_MODE.SINGLE : defaults_DEARVIEWER.FLIPBOOK_PAGE_MODE.DOUBLE;
                 this.updatePageMode();
                 app.resizeRequestStart();
-                // this.requestRefresh();
-                if (app.viewer.pageMode === defaults_DEARVIEWER.FLIPBOOK_PAGE_MODE.DOUBLE && app.ui.controls.pageMode) {
-                    app.ui.controls.pageMode.removeClass(app.options.icons['doublepage']).addClass(app.options.icons['singlepage']).attr('title', app.options.text.singlePageMode).html('<span>' + app.options.text.singlePageMode + '</span>');
-                } else {
-                    app.ui.controls.pageMode.addClass(app.options.icons['doublepage']).removeClass(app.options.icons['singlepage']).attr('title', app.options.text.doublePageMode).html('<span>' + app.options.text.doublePageMode + '</span>');
-                }
+            // this.requestRefresh();
             }
         },
         {
             key: "updatePageMode",
             value: function updatePageMode() {
+                var app = this.app;
                 if (this.app.pageCount < 3) this.pageMode = defaults_DEARVIEWER.FLIPBOOK_PAGE_MODE.SINGLE;
                 this.isSingle = this.pageMode === defaults_DEARVIEWER.FLIPBOOK_PAGE_MODE.SINGLE;
                 this.isBooklet = this.isSingle && this.singlePageMode === defaults_DEARVIEWER.FLIPBOOK_SINGLE_PAGE_MODE.BOOKLET;
                 this.app.jumpStep = this.isSingle ? 1 : 2;
                 this.totalSheets = Math.ceil(this.app.pageCount / (this.isBooklet ? 1 : 2));
                 if (this.sheets.length > 0) this.reset();
+                if (app.ui.controls.pageMode) {
+                    if (app.viewer.pageMode === defaults_DEARVIEWER.FLIPBOOK_PAGE_MODE.DOUBLE) {
+                        app.ui.controls.pageMode.removeClass(app.options.icons['doublepage']).addClass(app.options.icons['singlepage']).attr('title', app.options.text.singlePageMode).html('<span>' + app.options.text.singlePageMode + '</span>');
+                    } else {
+                        app.ui.controls.pageMode.addClass(app.options.icons['doublepage']).removeClass(app.options.icons['singlepage']).attr('title', app.options.text.doublePageMode).html('<span>' + app.options.text.doublePageMode + '</span>');
+                    }
+                }
             }
         },
         {
@@ -11277,20 +11285,20 @@ var UI = /*#__PURE__*/ function() {
                     //https://github.com/deepak-ghimire/dearviewer/issues/349
                     this.pageLabel.width("");
                     if (app.provider.pageLabels) {
-                        this.pageLabel.html("88888888888888888".substring(0, app.pageCount.toString().length * 3 + 4));
+                        this.pageLabel.text("88888888888888888".substring(0, app.pageCount.toString().length * 3 + 4));
                     } else {
-                        this.pageLabel.html("88888888888".substring(0, app.pageCount.toString().length * 2 + 3));
+                        this.pageLabel.text("88888888888".substring(0, app.pageCount.toString().length * 2 + 3));
                     }
                     this.pageNumber.width(this.pageLabel.width());
                     this.pageLabel.width(this.pageLabel.width());
-                    this.pageLabel.html("");
+                    this.pageLabel.text("");
                     this._pageLabelWidthSet = true;
                 }
                 var pageLabel = app.getCurrentLabel();
                 if (pageLabel.toString() !== app.currentPageNumber.toString()) {
-                    controls.pageLabel.html(pageLabel + "(" + app.currentPageNumber + "/" + app.pageCount + ")");
+                    controls.pageLabel.text(pageLabel + "(" + app.currentPageNumber + "/" + app.pageCount + ")");
                 } else {
-                    controls.pageLabel.html(pageLabel + "/" + app.pageCount);
+                    controls.pageLabel.text(pageLabel + "/" + app.pageCount);
                 }
                 controls.pageInput.val(pageLabel);
                 app.container.toggleClass("df-sidemenu-open", app.container.find(".df-sidemenu-visible").length > 0);
@@ -11465,7 +11473,7 @@ var PrintHandler = /*#__PURE__*/ function() {
         controls_class_call_check(this, PrintHandler);
         //cache this
         var printHandler = this;
-        printHandler.frame = controls_jQuery('<iframe id="df-print-frame" style="display:none">').appendTo(controls_jQuery("body"));
+        printHandler.frame = controls_jQuery('<iframe id="df-print-frame" style="display:none" src="about:blank">').appendTo(controls_jQuery("body"));
         printHandler.frame.on("load", function() {
             try {
                 printHandler.frame[0].contentWindow.print();
@@ -11479,6 +11487,12 @@ var PrintHandler = /*#__PURE__*/ function() {
         {
             key: "printPDF",
             value: function printPDF(source) {
+                //bypass dearflip chrome extension
+                if (source.indexOf("?") == -1) {
+                    source += "?print=true";
+                } else {
+                    source += "&print=true";
+                }
                 this.frame[0].src = source;
             }
         }
