@@ -1437,7 +1437,7 @@ Query.event = {
 
 /* globals jQuery */ var defaults_DEARVIEWER = {
     jQuery: null,
-    version: '2.4.28',
+    version: '2.4.30',
     autoDetectLocation: true,
     _isHashTriggered: false,
     slug: undefined,

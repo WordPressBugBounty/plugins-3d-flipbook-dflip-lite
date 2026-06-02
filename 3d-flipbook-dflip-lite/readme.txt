@@ -5,8 +5,8 @@ Author URI: https://dearflip.com/go/wp-lite-author
 Contributors: deip, dearhive
 Tags: flipbook, flip book, 3d flipbook, pdf flipbook, pdf viewer
 Requires at least: 4.6
-Tested up to: 6.9
-Stable tag: 2.4.28
+Tested up to: 7.0
+Stable tag: 2.4.30
 Requires PHP: 5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -297,6 +297,8 @@ Please report security bugs found in the source code of the DearFlip plugin thro
 == Changelog ==
 
 This lite version is available in the WordPress plugin directory since version 1.2.8
+= 2.4.30: =
+* Fix: Fixes Vulnerability CVE-2026-49047.
 
 = 2.4.27: =
 * Fix: Fixes Vulnerability CVE-2026-2569
@@ -348,7 +350,7 @@ This lite version is available in the WordPress plugin directory since version 1
 * Improve: 3D Shadow improved for landscape sizes
 
 = 2.3.32: =
-* Add: Category filter added in posts page
+* Add: Category filter is added in posts page
 * Fix: PDF.js Vulnerability (CVE-2024-4367) fix
 * Improve: PDF.js compatibility
 * Improve: CSS container queries supported and minified

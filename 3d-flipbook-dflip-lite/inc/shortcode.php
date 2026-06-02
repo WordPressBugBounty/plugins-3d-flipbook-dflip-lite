@@ -80,11 +80,14 @@ class DFlip_ShortCode {
           array_push( $ids, $query );
         } else {
           if ( $query == 'all' || $query == '*' ) {
+	          $isdrafts = isset( $attr['drafts'] ) && trim( $attr['drafts'] ) == 'true';
+	          $post_status = $isdrafts && current_user_can( 'read_private_posts' ) ? array('publish', 'draft','private') : null;
             $postslist = get_posts( array(
                 'post_type'      => 'dflip',
                 'posts_per_page' => -1,
                 'numberposts'    => $limit,
-                'nopaging'       => true
+                'nopaging'       => true,
+                'post_status' => $post_status
             ) );
             foreach ( $postslist as $post ) {
               if(!in_array($post->ID, $ids)) {
@@ -183,10 +186,24 @@ class DFlip_ShortCode {
 	  $post = trim( $post_id ) === '' ? null : get_post( $post_id );
     $post_data = array();
 		
-    //pull post data if available for the script part only
+    //pull post-data if available for the script part only
     if ( $post != null && !empty( $post_id ) && is_numeric( $post_id ) ) {
-
-      $id = 'df_' . $post_id;
+	    //DearFlip cannot display password-protected flipbook post-shortcodes.
+	    //Passwords were not intended for flipbook post. It will result in a blank output
+	    //As of version 2.4.29 password radio box is also hidden in post-UI.
+	    if(post_password_required( $post )){
+				return '';
+	    }
+			//If flipbook post is private, only the user with read capability should be able to view.
+	    if ( ( $post->post_status === "private" && !current_user_can( 'read_post',$post_id ) ) ) {
+		    return '';
+	    }
+	    //If flipbook post is draft, only the user with edit capability should be able to view.
+	    if ( ( $post->post_status === "draft" && !current_user_can( 'edit_post',$post_id) ) ) {
+		    return '';
+	    }
+			
+			$id = 'df_' . $post_id;
 
       $post_meta = get_post_meta( $post_id, '_dflip_data' );
 
